@@ -5,8 +5,8 @@
     <p style="margin-top: 0px;">Welcome to Xingye's Blog</p>
     <div>
       <p style="margin-left: 20px; margin-top:60px;margin-bottom:0px;font-size: 16px;font-family: 宋体;font-weight: bold;">
-        一切有为法</p>
-      <p style="margin-left: 20px; margin-top:5px;font-size:16px;font-family: 宋体;font-weight: bold;">如梦幻泡影</p>
+        金风玉露一相逢，</p>
+      <p style="margin-left: 20px; margin-top:5px;font-size:16px;font-family: 宋体;font-weight: bold;">便胜却人间无数。</p>
     </div>
     <div style=" margin-top:60px;">
       <p id="showsectime">
