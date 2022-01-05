@@ -2,7 +2,7 @@
   <div class="head-photo" style="width: 100%;height: 800px">
     <!-- banner -->
 
-    <img src="https://cdn.jsdelivr.net/gh/yubifeng/blog-resource/bloghosting/2021/04/27/340911.jpg" style="width: 100%;height: 100%">
+    <img src="@/assets/bg.png" style="width: 100%;height: 100%">
 
 
     <div class="banner-container">
@@ -10,8 +10,8 @@
       <el-col :span="24" style="height: 100%">
         <el-card shadow="none" class="welcome">
           <h1 class="tit">
-            欢迎来到星野的个人博客
-            <div class="border"></div>
+            星野
+<!--            <div class="border"></div>-->
           </h1>
           <h2 class="intro">{{intro}}
           </h2>
@@ -25,8 +25,8 @@
               时间轴
             </router-link>
 
-            <router-link  class="item el-icon-edit" to="/friends">
-              友人账
+            <router-link  class="item el-icon-info" to="/friends">
+              关于我
             </router-link>
 <!--            <router-link class="item el-icon-info" to="/about">-->
 <!--              关于我-->
@@ -68,19 +68,20 @@ export default {
     },
   },
   mounted() {
-    let str = '这是我的个人博客、会分享关于编程、开发的一些内容，以后也会写一些随笔，希望可以对您有所帮助...';
-    let idx = 0;
-    let that = this
-    let timer = setTimeout( function fn() {
-      // console.log(this.intro)
-      that.intro = that.intro+ str.substring(idx,idx+1)
-      idx++
-      if (idx>str.length){
-        that.intro = ''
-        idx = 0
-      }
-      setTimeout(fn,200)
-    },2000)
+    this.intro = 'My heart will go on'
+    // let str = '这是我的个人博客、会分享关于编程、开发的一些内容，以后也会写一些随笔，希望可以对您有所帮助...';
+    // let idx = 0;
+    // let that = this
+    // let timer = setTimeout( function fn() {
+    //   // console.log(this.intro)
+    //   that.intro = that.intro+ str.substring(idx,idx+1)
+    //   idx++
+    //   if (idx>str.length){
+    //     that.intro = ''
+    //     idx = 0
+    //   }
+    //   setTimeout(fn,200)
+    // },2000)
 
     // 导航栏显示
     var waypoint = new Waypoint({
@@ -110,7 +111,6 @@ export default {
 .head-photo {
   margin-bottom: 20px;
   text-align: center;
-  position: relative;
   top: 0;
 
 }
@@ -211,8 +211,8 @@ export default {
   }
 }
 .welcome {
-  background-color: rgba(0, 0, 0, 0.1);
-  /*background: transparent!important;*/
+  /*background-color: rgba(0, 0, 0, 0.1);*/
+  background: transparent!important;
   border: none;
   height: 90%;
   position: relative;
@@ -235,7 +235,7 @@ export default {
   width: 800px;
   height: 100px;
   line-height: 100px;
-  box-shadow: inset 0 0 0 1px white;
+  /*box-shadow: inset 0 0 0 1px white;*/
   margin: 40px auto;
   margin-top: 80px;
   color: white;
@@ -246,7 +246,7 @@ export default {
 }
 .mini-nav {
   position: absolute;
-  top: 70%;
+  top: 0%;
   left: 40%;
 }
 .item {

@@ -10,12 +10,17 @@
 
       <!--左侧-->
       <div :class="{'m-display-none':focusMode}" class="index-main-column-left">
-        <Card></Card>
+
       </div>
 
 
       <!--中间-->
       <div class="index-main-column-middle">
+        <div class="card" v-if="$route.name === 'Friends'">
+          <Card></Card>
+          <!--          <RightCard></RightCard>-->
+          <!--          <Calendar></Calendar>-->
+        </div>
         <keep-alive include="Home">
           <router-view/>
         </keep-alive>
@@ -25,9 +30,7 @@
       <!--右侧-->
       <div :class="{'m-display-none':focusMode}" class="index-main-column-right">
 
-        <RightCard></RightCard>
 
-        <Calendar></Calendar>
       </div>
 
     </div>
@@ -45,7 +48,7 @@
 
     <!-- 音乐播放器 -->
     <div>
-      <meting-js server="netease" type="playlist" id="6859965088" fixed="true" mini="true" ></meting-js>
+      <meting-js server="tencent" type="playlist" id="1527253824" fixed="true" mini="true" ></meting-js>
     </div>
 
 
@@ -197,6 +200,9 @@ export default {
 
 <style scoped>
 
+.card{
+  margin: auto;
+}
 
 .index-container {
   min-height: 100vh;
