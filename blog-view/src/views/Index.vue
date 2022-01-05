@@ -3,7 +3,7 @@
     <!--顶部导航栏-->
     <Navbar class = "navbar"  id="nav" v-show="$route.name!=='Home'||this.focusMode"></Navbar>
     <!--顶部图片-->
-    <HeadPhoto  id="header-photo" :class="{'m-display-none':focusMode}" class="head-photo" v-if="$route.name==='Home'" @fatherMethod="fatherMethod"></HeadPhoto>
+    <HeadPhoto  id="header-photo"  :class="{'m-display-none':focusMode}" class="head-photo" v-if="$route.name==='Home'" @fatherMethod="fatherMethod"></HeadPhoto>
 
     <!--使用弹性盒子实现左中右结构-->
     <div class="index-main" id="index" >
@@ -48,7 +48,7 @@
 
     <!-- 音乐播放器 -->
     <div>
-      <meting-js server="tencent" type="playlist" id="1527253824" fixed="true" mini="true" ></meting-js>
+      <meting-js server="tencent" type="playlist" id="8305693941" fixed="true" mini="true" ></meting-js>
     </div>
 
 
@@ -182,11 +182,11 @@ export default {
   computed: {},
   mounted() {
     if (this.getIsPhone()) {
-      this.focusMode = true
+      // this.focusMode = true
 
     }
     else {
-      this.specialEffect()
+      // this.specialEffect()
       this.snowSpecial()
     }
 
@@ -201,7 +201,7 @@ export default {
 <style scoped>
 
 .card{
-  margin: auto;
+  left: 0%;
 }
 
 .index-container {

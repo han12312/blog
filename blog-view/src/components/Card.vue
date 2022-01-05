@@ -3,7 +3,7 @@
     <!--展示名片头部--头像名称-->
     <div class="card-header">
       <el-avatar :size="50" :src="user.avatar"></el-avatar>
-      <p style="margin-top: 0px;">Xingye</p>
+      <p style="margin-top: 0px;">星野</p>
       <el-divider></el-divider>
     </div>
     <!--卡片底部--个人喜好-->
@@ -54,7 +54,7 @@ export default {
 
 <style scoped>
 .card {
-  width: 250px;
+  width: 300px;
   padding: 20px 0px 0px 0px;
   background-color: white;
 }

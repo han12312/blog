@@ -1,9 +1,9 @@
 <template>
-  <div class="head-photo" style="width: 100%;height: 800px">
+  <div class="head-photo" style="width: 100%;height: 820px">
     <!-- banner -->
 
-    <img src="@/assets/bg.png" style="width: 100%;height: 100%">
-
+    <img v-if="focusMode === false" src="@/assets/bg.png" style="width: 100%;height: 100%">
+    <img v-if="focusMode === true" src="@/assets/bg2.png" style="width: 100%;height: 100%">
 
     <div class="banner-container">
     <el-row style="height: 95vh">
@@ -18,19 +18,28 @@
 
 
           <div id="waypoint" class="mini-nav" align="center">
-            <router-link  class="item el-icon-s-home" to="/">
-              首页
-            </router-link>
-            <router-link  class="item el-icon-time" to="/archives">
-              时间轴
-            </router-link>
-
-            <router-link  class="item el-icon-info" to="/friends">
-              关于我
-            </router-link>
-<!--            <router-link class="item el-icon-info" to="/about">-->
-<!--              关于我-->
-<!--            </router-link>-->
+            <el-row>
+              <el-col :span="8">
+                <router-link  class="item el-icon-s-home" to="/">
+                  首页
+                </router-link>
+              </el-col>
+              <el-col  :span="8">
+                <router-link  class="item el-icon-time" to="/archives">
+                  时间轴
+                </router-link>
+              </el-col>
+              <el-col  :span="8">
+                <router-link  class="item el-icon-info" to="/friends">
+                  关于我
+                </router-link>
+              </el-col>
+              <el-col>
+                <!--            <router-link class="item el-icon-info" to="/about">-->
+                <!--              关于我-->
+                <!--            </router-link>-->
+              </el-col>
+            </el-row>
           </div>
 
           <!-- 向下滚动 -->
@@ -52,6 +61,7 @@ export default {
   data() {
     return {
       intro: '',
+      focusMode : false,
       intersectionOptions: {
         root: document.querySelector("#app"), //用作视口的元素，用于检查目标的可见性。必须是目标的祖先。如果未指定，则默认为浏览器视口null
         rootMargin: "0px",
@@ -65,6 +75,10 @@ export default {
       this.$nextTick(() => {
         this.$emit('fatherMethod')
       })
+    },
+    getIsPhone() {
+      let flag = navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad|Android|Mobile|BlackBerry|IEMobile|MQQBrowser|JUC|Fennec|wOSBrowser|BrowserNG|WebOS|Symbian|Windows Phone)/i)
+      return flag;
     },
   },
   mounted() {
@@ -101,6 +115,9 @@ export default {
         }
       }
     });
+    if (this.getIsPhone()) {
+      this.focusMode = true
+    }
 
   }
 
@@ -232,7 +249,7 @@ export default {
 .tit {
   box-sizing: border-box;
   position: relative;
-  width: 800px;
+  /*width: 800px;*/
   height: 100px;
   line-height: 100px;
   /*box-shadow: inset 0 0 0 1px white;*/
@@ -245,9 +262,10 @@ export default {
   letter-spacing: 10px;
 }
 .mini-nav {
+  width: 325px;
   position: absolute;
   top: 0%;
-  left: 40%;
+  left: 0%;
 }
 .item {
   border-radius: 10em;
