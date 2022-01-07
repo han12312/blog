@@ -3,7 +3,7 @@
     <!-- banner -->
 
     <img v-if="focusMode === false" src="@/assets/bg.png" style="width: 100%;height: 100%">
-    <img v-if="focusMode === true" src="@/assets/bg2.png" style="width: 100%;height: 100%">
+    <img v-if="focusMode === true" src="@/assets/bg2.png" style="width: 100%;height: 80%">
 
     <div class="banner-container">
     <el-row style="height: 95vh">
@@ -43,9 +43,9 @@
           </div>
 
           <!-- 向下滚动 -->
-          <div class="bounce down"  @click="startRead"  >
-            <i class="el-icon-arrow-down" style="color: white"></i>
-          </div>
+<!--          <div class="bounce down"  @click="startRead"  >-->
+<!--            <i class="el-icon-arrow-down" style="color: white"></i>-->
+<!--          </div>-->
 
         </el-card>
       </el-col>

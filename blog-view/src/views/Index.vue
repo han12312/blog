@@ -253,8 +253,7 @@ export default {
 .index-main-column-left {
 
   padding: 0;
-  margin-right: 20px;
-  margin-left: 30px;
+  margin-left: 15px;
 }
 
 .index-main-column-right {
