@@ -1,8 +1,7 @@
 package com.danli.util;
 
 import java.util.*;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+import java.util.regex.*;
 
 /**
  * @author hanxiaofei
@@ -53,41 +52,44 @@ public class AlgorithmUtil {
 //        reverseList();
 //        2.二叉树中序遍历(递归)
 //        traversal();
-//        1.数列描述
+//        1.数列描述(例:4)
 //        sequenceDescription();
 //        2.整数最小和(例:bb12-34aa)
 //        sumInteger();
 //        3.人数最多站点(例:3 13 24 14)
 //        station();
-//        4.报文回路(例:5 12 23 32 12 21、3 13 32 23)
+//        4.报文回路(例:5\n 1 2\n 2 3\n 3 2\n 1 2\n 2 1、3\n 1 3\n 3 2\n 2 3)
 //        messageLoop();
-//        5.图形周长
+//        5.图形周长(例:2\n 1 1 3 2 2 2 3 2 4 3 2 3 3 3 4 4 1 4 2 4 3 4 4 5 2 5 3\n
+//                     2 3 7 3 8 4 5 4 6 4 7 4 8 5 4 5 5 5 6 5 7 5 8 6 4 6 5 6 6 6 7 6 8 7 4 7 5 7 6 7 7 7 8)
 //        perimeter();
-//        6.运输时间
+//        6.运输时间(例:2 11\n 3\n 2)
 //        transportTime();
     }
 
     public static void reverseList() {
         Scanner sc = new Scanner(System.in);
-        String[] str = sc.nextLine().split(",");
-        ListNode node = new ListNode(Integer.parseInt(str[0]));
+        int[] a = Arrays.stream(sc.nextLine().split(",")).mapToInt(Integer::parseInt).toArray();
+        ListNode node = new ListNode(a[0]);
         ListNode head = node;
-        for (int i = 1; i < str.length; i++) {
-            node.next = new ListNode(Integer.parseInt(str[i]));
+        for (int i = 1; i < a.length; i++) {
+            node.next = new ListNode(a[i]);
             node = node.next;
         }
         ListNode result = reverseListD(head);
+        StringBuilder sb = new StringBuilder();
         while (result != null) {
-            System.out.print(result.val);
+            sb.append(result.val).append(",");
             result = result.next;
         }
-        System.out.println();
+        System.out.println(sb.deleteCharAt(sb.length() - 1));
         ListNode result2 = reverseListG(reverseListD(node));
+        StringBuilder sb2 = new StringBuilder();
         while (result2 != null) {
-            System.out.print(result2.val);
+            sb2.append(result2.val).append(",");
             result2 = result2.next;
         }
-        System.out.println();
+        System.out.println(sb2.deleteCharAt(sb2.length() - 1));
     }
 
     public static ListNode reverseListD(ListNode node) {
@@ -113,11 +115,7 @@ public class AlgorithmUtil {
 
     public static void traversal() {
         Scanner sc = new Scanner(System.in);
-        String[] str = sc.nextLine().split(",");
-        int[] a = new int[str.length];
-        for (int i = 0; i < str.length; i++) {
-            a[i] = Integer.parseInt(str[i]);
-        }
+        int[] a = Arrays.stream(sc.nextLine().split(",")).mapToInt(Integer::parseInt).toArray();
         TreeNode node = createTree(a, 0);
         List<Integer> result = new ArrayList<>();
         inorder(node, result);
@@ -250,18 +248,16 @@ public class AlgorithmUtil {
             }
         }
         for (int i = 0; i < list.size(); i++) {
-            int num = list.get(i);
-            int num2 = list2.get(i);
+            int a = list.get(i);
+            int b = list2.get(i);
             boolean flag = false;
             for (int j = 0; j < list.size(); j++) {
-                if (list.get(j) == num2 && list2.get(j) == num) {
+                if (list.get(j) == b && list2.get(j) == a) {
                     flag = true;
                     break;
                 }
             }
-            if (flag) {
-                continue;
-            } else {
+            if (!flag) {
                 System.out.println("False");
                 return;
             }
@@ -272,28 +268,24 @@ public class AlgorithmUtil {
     public static void perimeter() {
         Scanner sc = new Scanner(System.in);
         int index = Integer.parseInt(sc.nextLine());
-        String str = null;
         char[][] chars = new char[64][64];
-        int[] nums = null;
         StringBuilder sb = new StringBuilder();
-        int count = 0;
         while (index-- > 0) {
-            str = sc.nextLine();
-            nums = Arrays.stream(str.split(" ")).mapToInt(Integer::valueOf).toArray();
-            for (int i = 1; i < nums.length; i = i + 2) {
-                chars[nums[i]][nums[i + 1]] = (char) ('0' + nums[0]);
+            int[] a = Arrays.stream(sc.nextLine().split(" ")).mapToInt(Integer::parseInt).toArray();
+            for (int i = 1; i < a.length; i = i + 2) {
+                chars[a[i]][a[i + 1]] = (char) a[0];
             }
-            int t = calMask(chars, (char) ('0' + nums[0]));
-            count = find((int) nums[1], (int) nums[2], chars, (char) ('0' + nums[0]));
-            count = count * 4 - t * 2;
-            sb.append(count + " ");
+            int total = mask(chars, (char) a[0]);
+            int count = find(chars, (char) a[0]);
+            count = count * 4 - total * 2;
+            sb.append(count).append(" ");
         }
         System.out.println(sb.deleteCharAt(sb.length() - 1));
     }
 
-    public static int calMask(char[][] chars, char ch) {
-        int count = 0;
-        int count2 = 0;
+    public static int mask(char[][] chars, char ch) {
+        int count;
+        int count2;
         int total = 0;
         for (int i = 0; i < n; i++) {
             count = 0;
@@ -310,23 +302,26 @@ public class AlgorithmUtil {
                 total += count - 1;
             }
             if (count2 > 1) {
-                total = count2 - 1;
+                total += count2 - 1;
             }
         }
         return total;
     }
 
-    public static int find(int i, int j, char[][] chars, char target) {
-        if (i < 0 || j < 0 || i == n || j == m) {
-            return 0;
+    public static int find(char[][] chars, char ch) {
+        int count;
+        int total = 0;
+        for (int h = 0; h < n; h++) {
+            count = 0;
+            for (int k = 0; k < m; k++) {
+                if (chars[h][k] == ch) {
+                    chars[h][k] = '0';
+                    count++;
+                }
+            }
+            total += count;
         }
-        if (chars[i][j] == target) {
-            chars[i][j] = '0';
-            return find(i, j - 1, chars, target) + find(i - 1, j, chars, target) + find(i + 1, j, chars, target)
-                    + find(i, j + 1, chars, target) + 1;
-        } else {
-            return 0;
-        }
+        return total;
     }
 
     public static void transportTime() {
@@ -338,11 +333,11 @@ public class AlgorithmUtil {
         result[0] = N / firstSpeed;
         for (int i = 1; i < M; i++) {
             int speed = sc.nextInt();
-            float v = N / speed;
-            if (result[i - 1] > v + 1) {
+            float time = N / speed;
+            if (result[i - 1] > time + 1) {
                 result[i] = result[i - 1] - 1;
             } else {
-                result[i] = v;
+                result[i] = time;
             }
         }
         System.out.println(result[M - 1]);
