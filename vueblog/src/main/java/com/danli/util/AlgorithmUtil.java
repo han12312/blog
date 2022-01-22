@@ -251,7 +251,7 @@ public class AlgorithmUtil {
             int a = list.get(i);
             int b = list2.get(i);
             boolean flag = false;
-            for (int j = 0; j < list.size(); j++) {
+            for (int j = 0; j < list2.size(); j++) {
                 if (list.get(j) == b && list2.get(j) == a) {
                     flag = true;
                     break;
@@ -267,13 +267,13 @@ public class AlgorithmUtil {
 
     public static void perimeter() {
         Scanner sc = new Scanner(System.in);
-        int index = Integer.parseInt(sc.nextLine());
+        int n = Integer.parseInt(sc.nextLine());
         char[][] chars = new char[64][64];
         StringBuilder sb = new StringBuilder();
-        while (index-- > 0) {
+        for (int i = 0; i < n; i++) {
             int[] a = Arrays.stream(sc.nextLine().split(" ")).mapToInt(Integer::parseInt).toArray();
-            for (int i = 1; i < a.length; i = i + 2) {
-                chars[a[i]][a[i + 1]] = (char) a[0];
+            for (int j = 1; j < a.length; j = j + 2) {
+                chars[a[j]][a[j + 1]] = (char) a[0];
             }
             int total = mask(chars, (char) a[0]);
             int count = find(chars, (char) a[0]);
