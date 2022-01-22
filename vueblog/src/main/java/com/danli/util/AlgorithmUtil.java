@@ -277,7 +277,7 @@ public class AlgorithmUtil {
             }
             int mask = mask(chars, (char) a[0]);
             int total = find(chars, (char) a[0]);
-            total = total * 4 - mask * 2;
+            total = 4 * total - mask * 2;
             sb.append(total).append(" ");
         }
         System.out.println(sb.deleteCharAt(sb.length() - 1));
@@ -311,11 +311,11 @@ public class AlgorithmUtil {
     public static int find(char[][] chars, char ch) {
         int count;
         int total = 0;
-        for (int h = 0; h < n; h++) {
+        for (int i = 0; i < n; i++) {
             count = 0;
-            for (int k = 0; k < m; k++) {
-                if (chars[h][k] == ch) {
-                    chars[h][k] = '0';
+            for (int j = 0; j < m; j++) {
+                if (chars[i][j] == ch) {
+                    chars[i][j] = '0';
                     count++;
                 }
             }
