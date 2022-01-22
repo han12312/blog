@@ -275,10 +275,10 @@ public class AlgorithmUtil {
             for (int j = 1; j < a.length; j = j + 2) {
                 chars[a[j]][a[j + 1]] = (char) a[0];
             }
-            int total = mask(chars, (char) a[0]);
-            int count = find(chars, (char) a[0]);
-            count = count * 4 - total * 2;
-            sb.append(count).append(" ");
+            int mask = mask(chars, (char) a[0]);
+            int total = find(chars, (char) a[0]);
+            total = total * 4 - mask * 2;
+            sb.append(total).append(" ");
         }
         System.out.println(sb.deleteCharAt(sb.length() - 1));
     }
