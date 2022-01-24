@@ -8,9 +8,6 @@ import java.util.regex.*;
  */
 public class AlgorithmUtil {
 
-    public static int n = 64;
-    public static int m = 64;
-
     public static class ListNode {
         int val;
         ListNode next;
@@ -48,22 +45,23 @@ public class AlgorithmUtil {
     }
 
     public static void main(String[] args) {
-//        1.反转链表(迭代、递归)
+//        8.反转链表(迭代、递归 输入：1,2,3,4,5 输出：5,4,3,2,1)
 //        reverseList();
-//        2.二叉树中序遍历(递归)
+//        7.二叉树中序遍历(递归 输入：1,2,3,4,5 输出：4,2,5,1,3)
 //        traversal();
-//        1.数列描述(例:4)
+//        6.数列描述(输入：4 输出：111221)
 //        sequenceDescription();
-//        2.整数最小和(例:bb12-34aa)
+//        5.整数最小和(输入:bb12-34aa 输出：31)
 //        sumInteger();
-//        3.人数最多站点(例:3 13 24 14)
+//        4.人数最多站点(输入:3\n 1 3 2 4 1 4 输出：2)
 //        station();
-//        4.报文回路(例:5\n 1 2\n 2 3\n 3 2\n 1 2\n 2 1、3\n 1 3\n 3 2\n 2 3)
+//        3.报文回路(输入:5\n 1 2\n 2 3\n 3 2\n 1 2\n 2 1 输出：True)
 //        messageLoop();
-//        5.图形周长(例:2\n 1 1 3 2 2 2 3 2 4 3 2 3 3 3 4 4 1 4 2 4 3 4 4 5 2 5 3\n
-//                     2 3 7 3 8 4 5 4 6 4 7 4 8 5 4 5 5 5 6 5 7 5 8 6 4 6 5 6 6 6 7 6 8 7 4 7 5 7 6 7 7 7 8)
+//        2.图形周长(输入:2\n 1 1 3 2 2 2 3 2 4 3 2 3 3 3 4 4 1 4 2 4 3 4 4 5 2 5 3\n
+//                     2 3 7 3 8 4 5 4 6 4 7 4 8 5 4 5 5 5 6 5 7 5 8 6 4 6 5 6 6 6 7 6 8 7 4 7 5 7 6 7 7 7 8
+//                  输出：18 20)
 //        perimeter();
-//        6.运输时间(例:2 11\n 3\n 2)
+//        1.运输时间(输入:2 11\n 3\n 2 输出 5.5)
 //        transportTime();
     }
 
@@ -83,13 +81,13 @@ public class AlgorithmUtil {
             result = result.next;
         }
         System.out.println(sb.deleteCharAt(sb.length() - 1));
-        ListNode result2 = reverseListG(reverseListD(node));
-        StringBuilder sb2 = new StringBuilder();
-        while (result2 != null) {
-            sb2.append(result2.val).append(",");
-            result2 = result2.next;
+        result = reverseListG(reverseListD(node));
+        sb = new StringBuilder();
+        while (result != null) {
+            sb.append(result.val).append(",");
+            result = result.next;
         }
-        System.out.println(sb2.deleteCharAt(sb2.length() - 1));
+        System.out.println(sb.deleteCharAt(sb.length() - 1));
     }
 
     public static ListNode reverseListD(ListNode node) {
@@ -216,9 +214,7 @@ public class AlgorithmUtil {
         int max = temp.get(temp.size() - 1);
         int[] result = new int[max + 1];
         for (int i = 0; i < list.size(); i = i + 2) {
-            int minVal = list.get(i);
-            int maxVal = list.get(i + 1);
-            for (int j = minVal; j < maxVal; j++) {
+            for (int j = list.get(i); j < list.get(i + 1); j++) {
                 result[j] = result[j] + 1;
             }
         }
@@ -251,7 +247,7 @@ public class AlgorithmUtil {
             int a = list.get(i);
             int b = list2.get(i);
             boolean flag = false;
-            for (int j = 0; j < list2.size(); j++) {
+            for (int j = 0; j < list.size(); j++) {
                 if (list.get(j) == b && list2.get(j) == a) {
                     flag = true;
                     break;
@@ -287,10 +283,10 @@ public class AlgorithmUtil {
         int count;
         int count2;
         int total = 0;
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < 64; i++) {
             count = 0;
             count2 = 0;
-            for (int j = 0; j < m; j++) {
+            for (int j = 0; j < 64; j++) {
                 if (chars[i][j] == ch) {
                     count++;
                 }
@@ -311,9 +307,9 @@ public class AlgorithmUtil {
     public static int find(char[][] chars, char ch) {
         int count;
         int total = 0;
-        for (int i = 0; i < n; i++) {
+        for (int i = 0; i < 64; i++) {
             count = 0;
-            for (int j = 0; j < m; j++) {
+            for (int j = 0; j < 64; j++) {
                 if (chars[i][j] == ch) {
                     chars[i][j] = '0';
                     count++;
@@ -329,11 +325,9 @@ public class AlgorithmUtil {
         int M = sc.nextInt();
         float N = sc.nextInt();
         float[] result = new float[M];
-        int firstSpeed = sc.nextInt();
-        result[0] = N / firstSpeed;
+        result[0] = N / sc.nextInt();
         for (int i = 1; i < M; i++) {
-            int speed = sc.nextInt();
-            float time = N / speed;
+            float time = N / sc.nextInt();
             if (result[i - 1] > time + 1) {
                 result[i] = result[i - 1] - 1;
             } else {
