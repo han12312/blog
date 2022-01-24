@@ -45,6 +45,8 @@ public class AlgorithmUtil {
     }
 
     public static void main(String[] args) {
+//        9.两数之和(输入：2,7,11,15\n 9 输出：[0,1])
+        twoSum();
 //        8.反转链表(迭代、递归 输入：1,2,3,4,5 输出：5,4,3,2,1)
 //        reverseList();
 //        7.二叉树中序遍历(递归 输入：1,2,3,4,5 输出：4,2,5,1,3)
@@ -63,6 +65,29 @@ public class AlgorithmUtil {
 //        perimeter();
 //        1.运输时间(输入:2 11\n 3\n 2 输出 5.5)
 //        transportTime();
+    }
+
+    public static void twoSum(){
+        Scanner sc = new Scanner(System.in);
+        int[] nums = Arrays.stream(sc.nextLine().split(",")).mapToInt(Integer::parseInt).toArray();
+        int target = sc.nextInt();
+        int n = nums.length;
+        for (int i = 0; i < n; ++i) {
+            for (int j = i + 1; j < n; ++j) {
+                if (nums[i] + nums[j] == target) {
+                    System.out.println(Arrays.toString(new int[]{i, j}));
+                }
+            }
+        }
+        Map<Integer, Integer> map = new HashMap<>();
+        for (int i = 0; i < nums.length; ++i) {
+            if (map.containsKey(target - nums[i])) {
+                System.out.println(Arrays.toString(new int[]{map.get(target - nums[i]), i}));
+                return;
+            }
+            map.put(nums[i], i);
+        }
+        System.out.println(Arrays.toString(new int[0]));
     }
 
     public static void reverseList() {
