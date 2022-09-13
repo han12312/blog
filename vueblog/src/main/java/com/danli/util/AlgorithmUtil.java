@@ -1,5 +1,7 @@
 package com.danli.util;
 
+import net.sf.saxon.expr.Component;
+
 import java.util.*;
 import java.util.regex.*;
 
@@ -7,21 +9,33 @@ import java.util.regex.*;
  * @author hanxiaofei
  */
 public class AlgorithmUtil {
+
     public static class ListNode {
         int val;
         ListNode next;
 
-        ListNode() {
-        }
-
         ListNode(int val) {
             this.val = val;
         }
+    }
 
-        ListNode(int val, ListNode next) {
-            this.val = val;
-            this.next = next;
+    public static ListNode createListNode(int[] a) {
+        ListNode head = new ListNode(a[0]);
+        ListNode node = head;
+        for (int i = 1; i < a.length; i++) {
+            node.next = new ListNode(a[i]);
+            node = node.next;
         }
+        return head;
+    }
+
+    public static StringBuilder printListNode(ListNode head) {
+        StringBuilder sb = new StringBuilder();
+        while (head != null) {
+            sb.append(head.val).append(",");
+            head = head.next;
+        }
+        return sb.deleteCharAt(sb.length() - 1);
     }
 
     public static class TreeNode {
@@ -29,21 +43,32 @@ public class AlgorithmUtil {
         TreeNode left;
         TreeNode right;
 
-        TreeNode() {
-        }
-
         TreeNode(int val) {
             this.val = val;
         }
+    }
 
-        TreeNode(int val, TreeNode left, TreeNode right) {
-            this.val = val;
-            this.left = left;
-            this.right = right;
+    public static TreeNode createTree(int[] a, int i) {
+        if (i >= a.length) {
+            return null;
         }
+        TreeNode node = new TreeNode(a[i]);
+        node.left = createTree(a, 2 * i + 1);
+        node.right = createTree(a, 2 * i + 2);
+        return node;
+    }
+
+    public static void inorder(TreeNode node, List<Integer> result) {
+        if (node == null) {
+            return;
+        }
+        inorder(node.left, result);
+        result.add(node.val);
+        inorder(node.right, result);
     }
 
     public static void main(String[] args) {
+//        例题：
 //        1.反转链表(迭代、递归 输入：1,2,3,4,5 输出：5,4,3,2,1)
 //        reverseList();
 //        2.二叉树中序遍历(递归 输入：1,2,3,4,5 输出：4,2,5,1,3)
@@ -72,58 +97,55 @@ public class AlgorithmUtil {
 //                     2 3 7 3 8 4 5 4 6 4 7 4 8 5 4 5 5 5 6 5 7 5 8 6 4 6 5 6 6 6 7 6 8 7 4 7 5 7 6 7 7 7 8
 //                  输出：18 20)
 //        perimeter();
+//        14.斐波那契数列(输入：6 输出：8)
+//        fibonacci();
+//        15.机器人从cur出发，走rest步后，停在aim的方法数，共有位置N(输入：2,6,4,5 输出：13)
+//        ways();
+//        16.玩家只能拿最左最右的牌，返回最好分数(输入：5,7,4,5,8,1,6,0,3,4,6,1,7 输出：32)
+//        win();
+
+//        练习：
 //        1.两数之和(输入：2,7,11,15\n 9 输出：[0,1])
 //        twoSum();
 //        2.两数相加(输入: 2,4,3\n 5,6,4 输出: [7,0,8])
 //        twoAdd();
     }
 
+    //    例题：
+    //    1.反转链表(迭代、递归 输入：1,2,3,4,5 输出：5,4,3,2,1)
     public static void reverseList() {
         Scanner sc = new Scanner(System.in);
         int[] a = Arrays.stream(sc.nextLine().split(",")).mapToInt(Integer::parseInt).toArray();
-        ListNode node = new ListNode(a[0]);
-        ListNode head = node;
-        for (int i = 1; i < a.length; i++) {
-            node.next = new ListNode(a[i]);
-            node = node.next;
-        }
-        ListNode result = reverseListD(head);
-        StringBuilder sb = new StringBuilder();
-        while (result != null) {
-            sb.append(result.val).append(",");
-            result = result.next;
-        }
-        System.out.println(sb.deleteCharAt(sb.length() - 1));
-        result = reverseListG(reverseListD(node));
-        sb = new StringBuilder();
-        while (result != null) {
-            sb.append(result.val).append(",");
-            result = result.next;
-        }
-        System.out.println(sb.deleteCharAt(sb.length() - 1));
+        ListNode l1 = createListNode(a);
+        ListNode l2 = createListNode(a);
+        ListNode result1 = r1(l1);
+        System.out.println(printListNode(result1));
+        ListNode result2 = r2(l2);
+        System.out.println(printListNode(result2));
     }
 
-    public static ListNode reverseListD(ListNode node) {
-        ListNode head = null;
-        while (node != null) {
-            ListNode next = node.next;
-            node.next = head;
-            head = node;
-            node = next;
+    public static ListNode r1(ListNode head) {
+        ListNode dummy = new ListNode(0);
+        while (head != null) {
+            ListNode next = head.next;
+            head.next = dummy.next;
+            dummy.next = head;
+            head = next;
         }
-        return head;
+        return dummy.next;
     }
 
-    public static ListNode reverseListG(ListNode node) {
-        if (node == null || node.next == null) {
-            return node;
+    public static ListNode r2(ListNode head) {
+        if (head == null || head.next == null) {
+            return head;
         }
-        ListNode result = reverseListG(node.next);
-        node.next.next = node;
-        node.next = null;
-        return result;
+        ListNode newHead = r2(head.next);
+        head.next.next = head;
+        head.next = null;
+        return newHead;
     }
 
+    //    2.二叉树中序遍历(递归 输入：1,2,3,4,5 输出：4,2,5,1,3)
     public static void traversal() {
         Scanner sc = new Scanner(System.in);
         int[] a = Arrays.stream(sc.nextLine().split(",")).mapToInt(Integer::parseInt).toArray();
@@ -133,34 +155,15 @@ public class AlgorithmUtil {
         System.out.println(result);
     }
 
-    public static TreeNode createTree(int[] a, int i) {
-        if (i >= a.length) {
-            return null;
-        }
-        TreeNode node = new TreeNode(a[i]);
-        node.left = createTree(a, 2 * i + 1);
-        node.right = createTree(a, 2 * i + 2);
-        return node;
-    }
-
-    public static void inorder(TreeNode node, List<Integer> result) {
-        if (node == null) {
-            return;
-        }
-        inorder(node.left, result);
-        result.add(node.val);
-        inorder(node.right, result);
-    }
-
+    //    3.冒泡排序(输入：20,30,5,15,10,25,35 输出：5, 10, 15, 20, 25, 30, 35)
     public static void bubbleSort() {
         Scanner sc = new Scanner(System.in);
         int[] a = Arrays.stream(sc.nextLine().split(",")).mapToInt(Integer::parseInt).toArray();
-        boolean flag = false;
-        int temp;
         for (int i = 0; i < a.length - 1; i++) {
+            boolean flag = false;
             for (int j = 0; j < a.length - 1 - i; j++) {
                 if (a[j] > a[j + 1]) {
-                    temp = a[j + 1];
+                    int temp = a[j + 1];
                     a[j + 1] = a[j];
                     a[j] = temp;
                     flag = true;
@@ -173,6 +176,7 @@ public class AlgorithmUtil {
         System.out.println(Arrays.toString(a));
     }
 
+    //    4.选择排序(输入：20,30,5,15,10,25,35 输出：5, 10, 15, 20, 25, 30, 35)
     public static void selectionSort() {
         Scanner sc = new Scanner(System.in);
         int[] a = Arrays.stream(sc.nextLine().split(",")).mapToInt(Integer::parseInt).toArray();
@@ -183,7 +187,7 @@ public class AlgorithmUtil {
                     min = j;
                 }
             }
-            if (min == i){
+            if (min == i) {
                 continue;
             }
             int temp = a[i];
@@ -193,13 +197,14 @@ public class AlgorithmUtil {
         System.out.println(Arrays.toString(a));
     }
 
+    //    5.插入排序(输入：20,30,5,15,10,25,35 输出：5, 10, 15, 20, 25, 30, 35)
     public static void insertionSort() {
         Scanner sc = new Scanner(System.in);
         int[] a = Arrays.stream(sc.nextLine().split(",")).mapToInt(Integer::parseInt).toArray();
         int i, j, temp;
         for (i = 1; i < a.length; i++) {
             temp = a[i];
-            for (j = i - 1; j >= 0 && a[j] > temp ; j--) {
+            for (j = i - 1; j >= 0 && a[j] > temp; j--) {
                 a[j + 1] = a[j];
             }
             a[j + 1] = temp;
@@ -207,6 +212,7 @@ public class AlgorithmUtil {
         System.out.println(Arrays.toString(a));
     }
 
+    //    6.快速排序(输入：20,30,5,15,10,25,35 输出：5, 10, 15, 20, 25, 30, 35)
     public static void quickSortMain() {
         Scanner sc = new Scanner(System.in);
         int[] a = Arrays.stream(sc.nextLine().split(",")).mapToInt(Integer::parseInt).toArray();
@@ -214,6 +220,31 @@ public class AlgorithmUtil {
         System.out.println(Arrays.toString(a));
     }
 
+    public static void quickSort(int[] a, int low, int high) {
+        if (low < high) {
+            int index = Partition(a, low, high);
+            quickSort(a, low, index - 1);
+            quickSort(a, index + 1, high);
+        }
+    }
+
+    public static int Partition(int[] a, int low, int high) {
+        int temp = a[low];
+        while (low < high) {
+            while (low < high && a[high] >= temp) {
+                high--;
+            }
+            a[low] = a[high];
+            while (low < high && a[low] <= temp) {
+                low++;
+            }
+            a[high] = a[low];
+        }
+        a[low] = temp;
+        return low;
+    }
+
+    //    7.折半查找(输入: 5,10,15,20,25,30,35\n 15 输出：2)
     public static void binarySearch() {
         Scanner sc = new Scanner(System.in);
         int[] a = Arrays.stream(sc.nextLine().split(",")).mapToInt(Integer::parseInt).toArray();
@@ -233,6 +264,7 @@ public class AlgorithmUtil {
         System.out.println("未找到");
     }
 
+    //    8.人数最多站点(输入:3\n 1 3 2 4 1 4 输出：2)
     public static void station() {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
@@ -262,30 +294,7 @@ public class AlgorithmUtil {
         System.out.println(maxValIndex);
     }
 
-    public static void quickSort(int[] a, int low, int high) {
-        if (low < high) {
-            int index = Partition(a, low, high);
-            quickSort(a, low, index - 1);
-            quickSort(a, index + 1, high);
-        }
-    }
-
-    public static int Partition(int[] a, int low, int high) {
-        int temp = a[low];
-        while (low < high) {
-            while (low < high && a[high] >= temp) {
-                high--;
-            }
-            a[low] = a[high];
-            while (low < high && a[low] <= temp) {
-                low++;
-            }
-            a[high] = a[low];
-        }
-        a[low] = temp;
-        return low;
-    }
-
+    //    9.报文回路(输入:5\n 1 2\n 2 3\n 3 2\n 1 2\n 2 1 输出：True)
     public static void messageLoop() {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
@@ -318,6 +327,7 @@ public class AlgorithmUtil {
         System.out.println("True");
     }
 
+    //    10.数列描述(输入：4 输出：111221)
     public static void sequenceDescription() {
         Scanner sc = new Scanner(System.in);
         int n = sc.nextInt();
@@ -357,6 +367,7 @@ public class AlgorithmUtil {
         System.out.println(str);
     }
 
+    //    11.整数最小和(输入:bb12-34aa 输出：31)
     public static void sumInteger() {
         Scanner sc = new Scanner(System.in);
         String str = sc.nextLine();
@@ -379,6 +390,7 @@ public class AlgorithmUtil {
         System.out.println(count);
     }
 
+    //    12.运输时间(输入:2 11\n 3\n 2 输出 5.5)
     public static void transportTime() {
         Scanner sc = new Scanner(System.in);
         int M = sc.nextInt();
@@ -396,6 +408,9 @@ public class AlgorithmUtil {
         System.out.println(result[M - 1]);
     }
 
+    //    13.图形周长(输入:2\n 1 1 3 2 2 2 3 2 4 3 2 3 3 3 4 4 1 4 2 4 3 4 4 5 2 5 3\n
+    //    2 3 7 3 8 4 5 4 6 4 7 4 8 5 4 5 5 5 6 5 7 5 8 6 4 6 5 6 6 6 7 6 8 7 4 7 5 7 6 7 7 7 8
+    //    输出：18 20)
     public static void perimeter() {
         Scanner sc = new Scanner(System.in);
         int n = Integer.parseInt(sc.nextLine());
@@ -455,66 +470,164 @@ public class AlgorithmUtil {
         return total;
     }
 
-    public static void twoAdd() {
+    //    14.斐波那契数列(输入：6 输出：8)
+    public static void fibonacci() {
         Scanner sc = new Scanner(System.in);
-        int[] a = Arrays.stream(sc.nextLine().split(",")).mapToInt(Integer::parseInt).toArray();
-        int[] b = Arrays.stream(sc.nextLine().split(",")).mapToInt(Integer::parseInt).toArray();
-        ListNode nodeCreate = new ListNode(a[0]);
-        ListNode node1 = nodeCreate;
-        for (int i = 1; i < a.length; i++) {
-            nodeCreate.next = new ListNode(a[i]);
-            nodeCreate = nodeCreate.next;
-        }
-        ListNode nodeCreate2 = new ListNode(b[0]);
-        ListNode node2 = nodeCreate2;
-        for (int i = 1; i < a.length; i++) {
-            nodeCreate2.next = new ListNode(b[i]);
-            nodeCreate2 = nodeCreate2.next;
-        }
-        ListNode head = null, tail = null;
-        int carry = 0;
-        while (node1 != null || node2 != null) {
-            int n = node1 != null ? node1.val : 0;
-            int n2 = node2 != null ? node2.val : 0;
-            int sum = n + n2 + carry;
-            if (head == null) {
-                head = tail = new ListNode(sum % 10);
-            } else {
-                tail.next = new ListNode(sum % 10);
-                tail = tail.next;
-            }
-            carry = sum / 10;
-            if (node1 != null) {
-                node1 = node1.next;
-            }
-            if (node2 != null) {
-                node2 = node2.next;
-            }
-        }
-        if (carry > 0) {
-            tail.next = new ListNode(carry);
-        }
-        StringBuilder sb = new StringBuilder();
-        while (head != null) {
-            sb.append(head.val).append(",");
-            head = head.next;
-        }
-        System.out.println(sb.deleteCharAt(sb.length() - 1));
+        int n = sc.nextInt();
+        int[] dp = new int[n + 1];
+        System.out.println(f1(n));
+        System.out.println(f2(n, dp));
+        System.out.println(f3(n));
     }
 
+    public static int f1(int n) {
+        if (n == 1 || n == 2) {
+            return 1;
+        }
+        return f1(n - 1) + f1(n - 2);
+    }
+
+    public static int f2(int n, int[] dp) {
+        if (dp[n] != 0) {
+            return dp[n];
+        }
+        dp[1] = 1;
+        dp[2] = 1;
+        dp[n] = f2(n - 1, dp) + f2(n - 2, dp);
+        return dp[n];
+    }
+
+    public static int f3(int n) {
+        int[] dp = new int[n + 1];
+        dp[1] = 1;
+        dp[2] = 1;
+        for (int i = 3; i <= n; i++) {
+            dp[i] = dp[i - 1] + dp[i - 2];
+        }
+        return dp[n];
+    }
+
+    //    15.机器人从cur出发，走rest步后，停在aim的方法数，共有位置N(输入：2,6,4,5 输出：13)
+    public static void ways() {
+        Scanner sc = new Scanner(System.in);
+        int[] a = Arrays.stream(sc.nextLine().split(",")).mapToInt(Integer::parseInt).toArray();
+        int cur = a[0];
+        int rest = a[1];
+        int aim = a[2];
+        int N = a[3];
+        if (cur < 1 || cur > N || aim < 1 || aim > N || rest < 1 || N < 2) {
+            return;
+        }
+        int[][] dp = new int[N + 1][rest + 1];
+        for (int i = 0; i <= N; i++) {
+            for (int j = 0; j <= rest; j++) {
+                dp[i][j] = -1;
+            }
+        }
+        System.out.println(w1(cur, rest, aim, N));
+        System.out.println(w2(cur, rest, aim, N, dp));
+        System.out.println(w3(cur, rest, aim, N));
+    }
+
+    public static int w1(int cur, int rest, int aim, int N) {
+        if (rest == 0) {
+            return cur == aim ? 1 : 0;
+        }
+        if (cur == 1) {
+            return w1(2, rest - 1, aim, N);
+        }
+        if (cur == N) {
+            return w1(N - 1, rest - 1, aim, N);
+        }
+        return w1(cur - 1, rest - 1, aim, N) + w1(cur + 1, rest - 1, aim, N);
+    }
+
+    public static int w2(int cur, int rest, int aim, int N, int[][] dp) {
+        if (dp[cur][rest] != -1) {
+            return dp[cur][rest];
+        }
+        int ans = 0;
+        if (rest == 0) {
+            ans = cur == aim ? 1 : 0;
+        } else if (cur == 1) {
+            ans = w2(2, rest - 1, aim, N, dp);
+        } else if (cur == N) {
+            ans = w2(N - 1, rest - 1, aim, N, dp);
+        } else {
+            ans = w2(cur - 1, rest - 1, aim, N, dp) + w2(cur + 1, rest - 1, aim, N, dp);
+        }
+        dp[cur][rest] = ans;
+        return ans;
+    }
+
+    public static int w3(int cur, int rest, int aim, int N) {
+        int[][] dp = new int[N + 1][rest + 1];
+        dp[aim][0] = 1;
+        for (int i = 1; i <= rest; i++) {
+            dp[1][i] = dp[2][i - 1];
+            for (int j = 2; j < N; j++) {
+                dp[j][i] = dp[j - 1][i - 1] + dp[j + 1][i - 1];
+            }
+            dp[N][i] = dp[N - 1][i - 1];
+        }
+        return dp[cur][rest];
+    }
+
+    //    16.玩家只能拿最左最右的牌，返回最好分数(输入：5,7,4,5,8,1,6,0,3,4,6,1,7 输出：32)
+    public static void win() {
+        Scanner sc = new Scanner(System.in);
+        int[] a = Arrays.stream(sc.nextLine().split(",")).mapToInt(Integer::parseInt).toArray();
+        if (a == null || a.length == 0) {
+            return;
+        }
+        int first = wf1(a, 0, a.length - 1);
+        int second = wg1(a, 0, a.length - 1);
+        System.out.println(Math.max(first, second));
+    }
+
+    public static int wf1(int[] a, int L, int R) {
+        if (L == R) {
+            return a[L];
+        }
+        int p1 = a[L] + wg1(a, L + 1, R);
+        int p2 = a[R] + wg1(a, L, R - 1);
+        return Math.max(p1, p2);
+    }
+
+    public static int wg1(int[] a, int L, int R) {
+        if (L == R) {
+            return 0;
+        }
+        int p1 = wf1(a, L + 1, R);
+        int p2 = wf1(a, L, R - 1);
+        return Math.min(p1, p2);
+    }
+
+    public static int wf2(int[] a, int L, int R) {
+        if (L == R) {
+            return a[L];
+        }
+        int p1 = a[L] + wg2(a, L + 1, R);
+        int p2 = a[R] + wg2(a, L, R - 1);
+        return Math.max(p1, p2);
+    }
+
+    public static int wg2(int[] a, int L, int R) {
+        if (L == R) {
+            return 0;
+        }
+        int p1 = wf2(a, L + 1, R);
+        int p2 = wf2(a, L, R - 1);
+        return Math.min(p1, p2);
+    }
+
+    //    练习：
+    //    1.两数之和(输入：2,7,11,15\n 9 输出：[0,1])
     public static void twoSum() {
         Scanner sc = new Scanner(System.in);
         int[] nums = Arrays.stream(sc.nextLine().split(",")).mapToInt(Integer::parseInt).toArray();
         int n = sc.nextInt();
-        //方法1
-        for (int i = 0; i < nums.length; ++i) {
-            for (int j = i + 1; j < nums.length; ++j) {
-                if (nums[i] + nums[j] == n) {
-                    System.out.println(Arrays.toString(new int[]{i, j}));
-                }
-            }
-        }
-        //方法2
+
         Map<Integer, Integer> map = new HashMap<>();
         for (int i = 0; i < nums.length; ++i) {
             if (map.containsKey(n - nums[i])) {
@@ -525,4 +638,29 @@ public class AlgorithmUtil {
         }
         System.out.println(Arrays.toString(new int[0]));
     }
+
+    //    2.两数相加(输入: 2,4,3\n 5,6,4 输出: [7,0,8])
+    public static void twoAdd() {
+        Scanner sc = new Scanner(System.in);
+        int[] a = Arrays.stream(sc.nextLine().split(",")).mapToInt(Integer::parseInt).toArray();
+        int[] b = Arrays.stream(sc.nextLine().split(",")).mapToInt(Integer::parseInt).toArray();
+        ListNode l1 = createListNode(a);
+        ListNode l2 = createListNode(b);
+        ListNode dummy = new ListNode(0);
+        int sum = 0;
+        int more = 0;
+        ListNode pre = dummy;
+        while (l1 != null || l2 != null || more > 0) {
+            sum = (l1 == null ? 0 : l1.val) + (l2 == null ? 0 : l2.val) + more;
+            more = sum / 10;
+            sum %= 10;
+            ListNode node = new ListNode(sum);
+            pre.next = node;
+            pre = node;
+            l1 = l1 == null ? null : l1.next;
+            l2 = l2 == null ? null : l2.next;
+        }
+        System.out.println(dummy.next);
+    }
+
 }
