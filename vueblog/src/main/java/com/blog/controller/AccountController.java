@@ -7,7 +7,7 @@ import com.blog.common.lang.Result;
 import com.blog.common.lang.dto.LoginDto;
 import com.blog.entity.User;
 import com.blog.service.UserService;
-import com.blog.util.JwtUtils;
+import com.blog.utils.JwtUtils;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.springframework.beans.factory.annotation.Autowired;

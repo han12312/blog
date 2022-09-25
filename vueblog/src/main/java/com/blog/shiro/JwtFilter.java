@@ -2,7 +2,7 @@ package com.blog.shiro;
 
 import cn.hutool.json.JSONUtil;
 import com.blog.common.lang.Result;
-import com.blog.util.JwtUtils;
+import com.blog.utils.JwtUtils;
 import io.jsonwebtoken.Claims;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.AuthenticationToken;

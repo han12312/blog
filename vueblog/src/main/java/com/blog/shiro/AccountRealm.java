@@ -3,7 +3,7 @@ package com.blog.shiro;
 import cn.hutool.core.bean.BeanUtil;
 import com.blog.entity.User;
 import com.blog.service.UserService;
-import com.blog.util.JwtUtils;
+import com.blog.utils.JwtUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.shiro.authc.*;
 import org.apache.shiro.authz.AuthorizationInfo;

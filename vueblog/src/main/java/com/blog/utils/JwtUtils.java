@@ -1,4 +1,4 @@
-package com.blog.util;
+package com.blog.utils;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

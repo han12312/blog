@@ -12,7 +12,7 @@ import com.blog.config.RedisKeyConfig;
 import com.blog.entity.Blog;
 import com.blog.service.BlogService;
 import com.blog.service.RedisService;
-import com.blog.util.ShiroUtil;
+import com.blog.utils.ShiroUtil;
 import org.apache.shiro.authz.annotation.RequiresAuthentication;
 import org.apache.shiro.authz.annotation.RequiresPermissions;
 import org.apache.shiro.authz.annotation.RequiresRoles;

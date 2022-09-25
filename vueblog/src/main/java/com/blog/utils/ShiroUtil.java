@@ -1,4 +1,4 @@
-package com.blog.util;
+package com.blog.utils;
 
 import com.blog.shiro.AccountProfile;
 import org.apache.shiro.SecurityUtils;
