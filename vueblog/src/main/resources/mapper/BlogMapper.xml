@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.danli.mapper.BlogMapper">
+<mapper namespace="com.blog.mapper.BlogMapper">
 
     <!--定义resultMap-->
-    <resultMap id="BlogResultMap" type="com.danli.common.lang.vo.BlogInfo">
+    <resultMap id="BlogResultMap" type="com.blog.common.lang.vo.BlogInfo">
         <id property="id" column="id"/>
         <result property="title" column="title"/>
         <result property="firstPicture" column="first_picture"/>
@@ -17,7 +17,7 @@
         <result property="userId" column="user_id"/>
         <result property="typeId" column="type_id"/>
 
-        <association property="type" javaType="com.danli.entity.Type">
+        <association property="type" javaType="com.blog.entity.Type">
             <id property="id" column="id"/>
             <result property="typeName" column="type_name"/>
         </association>

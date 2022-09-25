@@ -17,7 +17,7 @@
       <!--中间-->
       <div class="index-main-column-middle">
         <div class="card" v-if="$route.name === 'Friends'">
-          <Card></Card>
+<!--          <Card></Card>-->
           <!--          <RightCard></RightCard>-->
           <!--          <Calendar></Calendar>-->
         </div>

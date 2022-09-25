@@ -1,13 +1,13 @@
 # DataSource Config
 server:
-  port: 8083
+  port: 8081
 spring:
   datasource:
     driver-class-name: com.mysql.cj.jdbc.Driver
     url: jdbc:mysql://39.107.14.242:3306/vueblog?useUnicode=true&useSSL=false&characterEncoding=utf8&serverTimezone=UTC
-    username: root
+    username: vueblog
     password: 666666
-    # redis 配置
+  # redis 配置
   redis:
     # 地址
     host: 39.107.14.242
@@ -30,15 +30,16 @@ spring:
         # #连接池最大阻塞等待时间（使用负值表示没有限制）
         max-wait: -1ms
   mail:
-      host:  smtp.163.com
-      username: skymomail@163.com
-      password: your
+      host:  smtp.qq.com
+      username: 568002633@qq.com
+      password: 123456
       default-encoding: UTF-8
 mybatis-plus:
   mapper-locations: classpath*:/mapper/**Mapper.xml
-fanli:
-  jwt:
-    # 部署上线务必修改此配置，以保证token的安全性
-    secret: f4e2e52034348f86b67cde581c0f9eb5
-    expire: 172800
-    header: token
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+jwt:
+  # 部署上线务必修改此配置，以保证token的安全性
+  secret: f4e2e52034348f86b67cde581c0f9eb5
+  expire: 172800
+  header: token

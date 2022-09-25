@@ -3,7 +3,7 @@ import Element from "element-ui";
 import store from "./store";
 import router from "./router";
 
-axios.defaults.baseURL = "https://api.skymo.top/"
+axios.defaults.baseURL = "http://localhost:8081"
 //请求拦截
 axios.interceptors.request.use(config => {
     //console.log("前置拦截")
