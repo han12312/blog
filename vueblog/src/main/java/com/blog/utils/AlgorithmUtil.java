@@ -47,10 +47,10 @@ public class AlgorithmUtil {
         System.out.println(printListNode(result2));
     }
 
-    public static ListNode createListNode(int[] a) {
+    public static ListNode createListNode(int[] nums) {
         ListNode node = new ListNode(0), head = node;
-        for (int i : a) {
-            node.next = new ListNode(i);
+        for (int n : nums) {
+            node.next = new ListNode(n);
             node = node.next;
         }
         return head.next;
@@ -89,27 +89,26 @@ public class AlgorithmUtil {
     //    2.遍历二叉树(递归 输入：1,2,3,4,5 输出：4,2,5,1,3)
     public static void traversal() {
         Scanner scanner = new Scanner(System.in);
-        int[] a = Arrays.stream(scanner.nextLine().split(",")).mapToInt(Integer::parseInt).toArray();
-        TreeNode node = createTree(a, 0);
+        int[] nums = Arrays.stream(scanner.nextLine().split(",")).mapToInt(Integer::parseInt).toArray();
+        TreeNode node = createTree(nums, 0);
+        System.out.println(breadth(node));
         List<Integer> result = new ArrayList<>();
-        breadth(node, result);
-        System.out.println(result);
-        result = new ArrayList<>();
         inorder(node, result);
         System.out.println(result);
     }
 
-    public static TreeNode createTree(int[] a, int i) {
-        if (a.length <= i) {
+    public static TreeNode createTree(int[] nums, int n) {
+        if (nums.length <= n) {
             return null;
         }
-        TreeNode node = new TreeNode(a[i]);
-        node.left = createTree(a, 2 * i + 1);
-        node.right = createTree(a, 2 * i + 2);
+        TreeNode node = new TreeNode(nums[n]);
+        node.left = createTree(nums, 2 * n + 1);
+        node.right = createTree(nums, 2 * n + 2);
         return node;
     }
 
-    public static void breadth(TreeNode node, List<Integer> result) {
+    public static List<Integer> breadth(TreeNode node) {
+        List<Integer> result = new ArrayList<>();
         Queue<TreeNode> queue = new LinkedList<>();
         queue.add(node);
         while (!queue.isEmpty()) {
@@ -122,6 +121,7 @@ public class AlgorithmUtil {
             }
             result.add(tmp.val);
         }
+        return result;
     }
 
     public static void inorder(TreeNode node, List<Integer> result) {
@@ -136,18 +136,18 @@ public class AlgorithmUtil {
     //    3.二分法(输入: 5,10,15,20,25,30,35\n 15 输出：2)
     public static void binarySearch() {
         Scanner scanner = new Scanner(System.in);
-        int[] a = Arrays.stream(scanner.nextLine().split(",")).mapToInt(Integer::parseInt).toArray();
+        int[] nums = Arrays.stream(scanner.nextLine().split(",")).mapToInt(Integer::parseInt).toArray();
         int key = scanner.nextInt();
-        System.out.println(binarySearch(a, key));
+        System.out.println(binarySearch(nums, key));
     }
 
-    public static int binarySearch(int[] a, int key) {
-        int low = 0, high = a.length - 1, mid;
+    public static int binarySearch(int[] nums, int key) {
+        int low = 0, high = nums.length - 1, mid;
         while (low <= high) {
             mid = (high + low) / 2;
-            if (a[mid] == key) {
+            if (nums[mid] == key) {
                 return mid;
-            } else if (a[mid] < key) {
+            } else if (nums[mid] < key) {
                 low = mid + 1;
             } else {
                 high = mid - 1;
