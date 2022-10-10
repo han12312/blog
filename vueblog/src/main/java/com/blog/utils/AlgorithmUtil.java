@@ -33,6 +33,10 @@ public class AlgorithmUtil {
 //        traversal();
 //        3.二分法(输入: 5,10,15,20,25,30,35\n 15 输出：2)
 //        binarySearch();
+//        4.冒泡排序(输入：20,30,5,15,10,25,35 输出：5, 10, 15, 20, 25, 30, 35)
+//        bubbleSort();
+//        5.快速排序(输入：20,30,5,15,10,25,35 输出：5, 10, 15, 20, 25, 30, 35)
+//        quickSortMain();
     }
 
     //    1.反转链表(输入：1,2,3,4,5 输出:5,4,3,2,1)
@@ -154,5 +158,51 @@ public class AlgorithmUtil {
             }
         }
         return -1;
+    }
+
+    //    4.冒泡排序(输入：20,30,5,15,10,25,35 输出：5, 10, 15, 20, 25, 30, 35)
+    public static void bubbleSort() {
+        Scanner sc = new Scanner(System.in);
+        int[] a = Arrays.stream(sc.nextLine().split(",")).mapToInt(Integer::parseInt).toArray();
+        for (int i = 0; i < a.length - 1; i++) {
+            for (int j = 0; j < a.length - 1 - i; j++) {
+                if (a[j] > a[j + 1]) {
+                    int temp = a[j + 1];
+                    a[j + 1] = a[j];
+                    a[j] = temp;
+                }
+            }
+        }
+        System.out.println(Arrays.toString(a));
+    }
+
+    //    5.快速排序(输入：20,30,5,15,10,25,35 输出：5, 10, 15, 20, 25, 30, 35)
+    public static void quickSortMain() {
+        Scanner sc = new Scanner(System.in);
+        int[] nums = Arrays.stream(sc.nextLine().split(",")).mapToInt(Integer::parseInt).toArray();
+        quickSort(nums, 0, nums.length - 1);
+        System.out.println(Arrays.toString(nums));
+    }
+
+    public static void quickSort(int[] nums, int low, int high) {
+        if (low >= high) {
+            return;
+        }
+        int l = low;
+        int h = high;
+        int temp = nums[low];
+        while (l < h) {
+            while (l < h && nums[h] >= temp) {
+                h--;
+            }
+            nums[l] = nums[h];
+            while (l < h && nums[l] <= temp) {
+                l++;
+            }
+            nums[h] = nums[l];
+        }
+        nums[l] = temp;
+        quickSort(nums, low, l - 1);
+        quickSort(nums, h + 1, high);
     }
 }
