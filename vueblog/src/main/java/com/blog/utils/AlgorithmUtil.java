@@ -36,7 +36,7 @@ public class AlgorithmUtil {
 //        4.冒泡排序(输入：20,30,5,15,10,25,35 输出：5, 10, 15, 20, 25, 30, 35)
 //        bubbleSort();
 //        5.快速排序(输入：20,30,5,15,10,25,35 输出：5, 10, 15, 20, 25, 30, 35)
-//        quickSortMain();
+        quickSortMain();
     }
 
     //    1.反转链表(输入：1,2,3,4,5 输出:5,4,3,2,1)
@@ -163,17 +163,17 @@ public class AlgorithmUtil {
     //    4.冒泡排序(输入：20,30,5,15,10,25,35 输出：5, 10, 15, 20, 25, 30, 35)
     public static void bubbleSort() {
         Scanner sc = new Scanner(System.in);
-        int[] a = Arrays.stream(sc.nextLine().split(",")).mapToInt(Integer::parseInt).toArray();
-        for (int i = 0; i < a.length - 1; i++) {
-            for (int j = 0; j < a.length - 1 - i; j++) {
-                if (a[j] > a[j + 1]) {
-                    int temp = a[j + 1];
-                    a[j + 1] = a[j];
-                    a[j] = temp;
+        int[] nums = Arrays.stream(sc.nextLine().split(",")).mapToInt(Integer::parseInt).toArray();
+        for (int i = 0; i < nums.length - 1; i++) {
+            for (int j = 0; j < nums.length - 1 -i; j++) {
+                if (nums[j] > nums[j +1]) {
+                    int temp = nums[j];
+                    nums[j] = nums[j + 1];
+                    nums[j + 1] = temp;
                 }
             }
         }
-        System.out.println(Arrays.toString(a));
+        System.out.println(Arrays.toString(nums));
     }
 
     //    5.快速排序(输入：20,30,5,15,10,25,35 输出：5, 10, 15, 20, 25, 30, 35)
@@ -185,24 +185,24 @@ public class AlgorithmUtil {
     }
 
     public static void quickSort(int[] nums, int low, int high) {
-        if (low >= high) {
-            return;
-        }
+       if (low >= high) {
+           return;
+       }
+        int temp = nums[low];
         int l = low;
         int h = high;
-        int temp = nums[low];
-        while (l < h) {
-            while (l < h && nums[h] >= temp) {
-                h--;
-            }
-            nums[l] = nums[h];
-            while (l < h && nums[l] <= temp) {
-                l++;
-            }
-            nums[h] = nums[l];
-        }
-        nums[l] = temp;
-        quickSort(nums, low, l - 1);
-        quickSort(nums, h + 1, high);
+       while (l < h) {
+           while (l < h && nums[h] >= temp) {
+               h--;
+           }
+           nums[l] = nums[h];
+           while (l < h && nums[l] <= temp) {
+               l++;
+           }
+           nums[h] = nums[l];
+       }
+       nums[l] = temp;
+       quickSort(nums, low, l - 1);
+       quickSort(nums, h + 1, high);
     }
 }
