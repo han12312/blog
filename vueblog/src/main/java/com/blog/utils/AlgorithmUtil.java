@@ -165,8 +165,8 @@ public class AlgorithmUtil {
         Scanner sc = new Scanner(System.in);
         int[] nums = Arrays.stream(sc.nextLine().split(",")).mapToInt(Integer::parseInt).toArray();
         for (int i = 0; i < nums.length - 1; i++) {
-            for (int j = 0; j < nums.length - 1 -i; j++) {
-                if (nums[j] > nums[j +1]) {
+            for (int j = 0; j < nums.length - 1 - i; j++) {
+                if (nums[j] > nums[j + 1]) {
                     int temp = nums[j];
                     nums[j] = nums[j + 1];
                     nums[j + 1] = temp;
@@ -185,24 +185,24 @@ public class AlgorithmUtil {
     }
 
     public static void quickSort(int[] nums, int low, int high) {
-       if (low >= high) {
-           return;
-       }
+        if (low >= high) {
+            return;
+        }
         int temp = nums[low];
         int l = low;
         int h = high;
-       while (l < h) {
-           while (l < h && nums[h] >= temp) {
-               h--;
-           }
-           nums[l] = nums[h];
-           while (l < h && nums[l] <= temp) {
-               l++;
-           }
-           nums[h] = nums[l];
-       }
-       nums[l] = temp;
-       quickSort(nums, low, l - 1);
-       quickSort(nums, h + 1, high);
+        while (l < h) {
+            while (l < h && nums[h] >= temp) {
+                h--;
+            }
+            nums[l] = nums[h];
+            while (l < h && nums[l] <= temp) {
+                l++;
+            }
+            nums[h] = nums[l];
+        }
+        nums[l] = temp;
+        quickSort(nums, low, l - 1);
+        quickSort(nums, h + 1, high);
     }
 }
