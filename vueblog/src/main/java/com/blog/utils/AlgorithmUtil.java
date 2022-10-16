@@ -28,7 +28,7 @@ public class AlgorithmUtil {
 
     public static void main(String[] args) {
 //        1.反转链表(输入：1,2,3,4,5 输出:5,4,3,2,1)
-//        reverseList();
+        reverseList();
 //        2.遍历二叉树(递归 输入：1,2,3,4,5 输出：4,2,5,1,3)
 //        traversal();
 //        3.二分法(输入: 5,10,15,20,25,30,35\n 15 输出：2)
@@ -36,18 +36,18 @@ public class AlgorithmUtil {
 //        4.冒泡排序(输入：20,30,5,15,10,25,35 输出：5, 10, 15, 20, 25, 30, 35)
 //        bubbleSort();
 //        5.快速排序(输入：20,30,5,15,10,25,35 输出：5, 10, 15, 20, 25, 30, 35)
-        quickSortMain();
+//        quickSortMain();
     }
 
     //    1.反转链表(输入：1,2,3,4,5 输出:5,4,3,2,1)
     public static void reverseList() {
         Scanner scanner = new Scanner(System.in);
-        int[] a = Arrays.stream(scanner.nextLine().split(",")).mapToInt(Integer::parseInt).toArray();
-        ListNode l1 = createListNode(a);
-        ListNode l2 = createListNode(a);
-        ListNode result1 = r1(l1);
+        int[] nums = Arrays.stream(scanner.nextLine().split(",")).mapToInt(Integer::parseInt).toArray();
+        ListNode l1 = createListNode(nums);
+        ListNode l2 = createListNode(nums);
+        ListNode result1 = iterate(l1);
         System.out.println(printListNode(result1));
-        ListNode result2 = r2(l2);
+        ListNode result2 = recur(l2, null);
         System.out.println(printListNode(result2));
     }
 
@@ -69,10 +69,10 @@ public class AlgorithmUtil {
         return list;
     }
 
-    public static ListNode r1(ListNode head) {
-        ListNode pre = null, cur = head, tmp;
+    public static ListNode iterate(ListNode head) {
+        ListNode cur = head, pre = null;
         while (cur != null) {
-            tmp = cur.next;
+            ListNode tmp = cur.next;
             cur.next = pre;
             pre = cur;
             cur = tmp;
@@ -80,14 +80,13 @@ public class AlgorithmUtil {
         return pre;
     }
 
-    public static ListNode r2(ListNode head) {
-        if (head == null || head.next == null) {
-            return head;
+    public static ListNode recur(ListNode cur, ListNode pre) {
+        if (cur == null) {
+            return pre;
         }
-        ListNode tmp = r2(head.next);
-        head.next.next = head;
-        head.next = null;
-        return tmp;
+        ListNode res = recur(cur.next, cur);
+        cur.next = pre;
+        return res;
     }
 
     //    2.遍历二叉树(递归 输入：1,2,3,4,5 输出：4,2,5,1,3)
@@ -102,7 +101,7 @@ public class AlgorithmUtil {
     }
 
     public static TreeNode createTree(int[] nums, int n) {
-        if (nums.length <= n) {
+        if (nums.length <= n || nums[n] == 0) {
             return null;
         }
         TreeNode node = new TreeNode(nums[n]);
