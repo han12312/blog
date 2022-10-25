@@ -42,8 +42,8 @@ public class CommentController {
     /**
      * 分页查询所有评论
      */
-    @RequiresAuthentication
-    @RequiresPermissions("user:read")
+    //@RequiresAuthentication
+    //@RequiresPermissions("user:read")
     @GetMapping("/commentList")
     public Result getCommentListByPage(@RequestParam(defaultValue = "1") Integer currentPage,@RequestParam(defaultValue = "10") Integer pageSize ) {
 
@@ -60,8 +60,8 @@ public class CommentController {
     /**
      * 分页查询某个博客下的根评论
      */
-    @RequiresAuthentication
-    @RequiresPermissions("user:read")
+    //@RequiresAuthentication
+    //@RequiresPermissions("user:read")
     @GetMapping("/comment/detail")
     public Result getCommentListByPageId(@RequestParam(defaultValue = "1") Long blogId, @RequestParam(defaultValue = "1") Integer currentPage,@RequestParam(defaultValue = "10") Integer pageSize ) {
 
@@ -97,8 +97,8 @@ public class CommentController {
     /**
      * 修改评论的状态
      */
-    @RequiresAuthentication
-    @RequiresPermissions("user:update")
+    //@RequiresAuthentication
+    //@RequiresPermissions("user:update")
     @RequestMapping("comment/publish/{id}")
     public Result publish(@PathVariable(name = "id")String id){
         Comment comment = commentService.getById(id);
@@ -113,8 +113,8 @@ public class CommentController {
     /**
      * 修改评论
      */
-    @RequiresAuthentication
-    @RequiresPermissions("user:update")
+    //@RequiresAuthentication
+    //@RequiresPermissions("user:update")
     @RequestMapping("comment/update")
     public Result updateById(@Validated @RequestBody Comment comment){
         if(comment==null){
@@ -130,9 +130,9 @@ public class CommentController {
     /**
      * 删除评论
      */
-    @RequiresRoles("role_root")
-    @RequiresPermissions("user:delete")
-    @RequiresAuthentication
+    //@RequiresRoles("role_root")
+    //@RequiresPermissions("user:delete")
+    //@RequiresAuthentication
     @RequestMapping("comment/delete/{id}")
     public Result delete(@PathVariable(name = "id")String id){
 

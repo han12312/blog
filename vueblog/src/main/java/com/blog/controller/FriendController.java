@@ -54,8 +54,8 @@ public class FriendController {
     /**
      * 分页查询所有友链
      */
-    @RequiresAuthentication
-    @RequiresPermissions("user:read")
+    //@RequiresAuthentication
+    //@RequiresPermissions("user:read")
     @GetMapping("/friendList")
     public Result friendList(@RequestParam(defaultValue = "1") Integer currentPage,@RequestParam(defaultValue = "10") Integer pageSize) {
 
@@ -86,8 +86,8 @@ public class FriendController {
     /**
      * 修改友链的状态
      */
-    @RequiresAuthentication
-    @RequiresPermissions("user:update")
+    //@RequiresAuthentication
+    //@RequiresPermissions("user:update")
     @RequestMapping("friend/publish/{id}")
     public Result publish(@PathVariable(name = "id")Long id){
         Friend friend = friendService.getById(id);
@@ -104,8 +104,8 @@ public class FriendController {
     /**
      * 修改友链
      */
-    @RequiresPermissions("user:update")
-    @RequiresAuthentication
+    //@RequiresPermissions("user:update")
+    //@RequiresAuthentication
     @PostMapping("/friend/update")
     public Result updateFriend(@Validated @RequestBody Friend friend){
         if(friend==null){
@@ -125,8 +125,8 @@ public class FriendController {
     /**
      * 增加友链
      */
-    @RequiresPermissions("user:create")
-    @RequiresAuthentication
+    //@RequiresPermissions("user:create")
+    //@RequiresAuthentication
     @PostMapping("/friend/create")
     public Result createFriend(@Validated @RequestBody Friend friend){
         if(friend==null){
@@ -146,9 +146,9 @@ public class FriendController {
     /**
      * 删除友链
      */
-    @RequiresRoles("role_root")
-    @RequiresPermissions("user:delete")
-    @RequiresAuthentication
+    //@RequiresRoles("role_root")
+    //@RequiresPermissions("user:delete")
+    //@RequiresAuthentication
     @GetMapping("/friend/delete/{id}")
     public Result delete(@PathVariable(name = "id") Long id) {
 

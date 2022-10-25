@@ -35,9 +35,9 @@ public class UserController {
     /**
      * 分页查询用户
      */
-    @RequiresRoles("role_root")
-    @RequiresAuthentication
-    @RequiresPermissions("user:read")
+    //@RequiresRoles("role_root")
+    //@RequiresAuthentication
+    //@RequiresPermissions("user:read")
     @GetMapping("/list")
     public Result userList(@RequestParam(defaultValue = "1") Integer currentPage, @RequestParam(defaultValue = "10") Integer pageSize) {
         List<UserInfo> list = userService.getUserInfoList();
@@ -65,9 +65,9 @@ public class UserController {
     /**
      * 创建用户
      */
-    @RequiresRoles("role_root")
-    @RequiresPermissions("user:create")
-    @RequiresAuthentication
+    //@RequiresRoles("role_root")
+    //@RequiresPermissions("user:create")
+    //@RequiresAuthentication
     @PostMapping("/create")
     public Result createUser(@Validated @RequestBody User user){
         if(user==null){
@@ -89,9 +89,9 @@ public class UserController {
     /**
      * 修改用户信息
      */
-    @RequiresRoles("role_root")
-    @RequiresPermissions("user:update")
-    @RequiresAuthentication
+    //@RequiresRoles("role_root")
+    //@RequiresPermissions("user:update")
+    //@RequiresAuthentication
     @PostMapping("/update")
     public Result updateUser(@Validated @RequestBody User user){
         if(user==null){
@@ -119,9 +119,9 @@ public class UserController {
     /**
      * 删除用户
      */
-    @RequiresRoles("role_root")
-    @RequiresPermissions("user:delete")
-    @RequiresAuthentication
+    //@RequiresRoles("role_root")
+    //@RequiresPermissions("user:delete")
+    //@RequiresAuthentication
     @GetMapping("/delete/{id}")
     public Result delete(@PathVariable(name = "id") Long id) {
         User user = userService.getById(id);
@@ -139,8 +139,8 @@ public class UserController {
     /**
      * 修改用户的状态
      */
-    @RequiresRoles("role_root")
-    @RequiresPermissions("user:update")
+    //@RequiresRoles("role_root")
+    //@RequiresPermissions("user:update")
     @RequestMapping("/publish/{id}")
     public Result publish(@PathVariable(name = "id")Long id){
         User user = userService.getById(id);

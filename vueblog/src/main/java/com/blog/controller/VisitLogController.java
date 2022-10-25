@@ -31,8 +31,8 @@ public class VisitLogController {
     /**
      * 查询所有游客浏览日志
      */
-    @RequiresAuthentication
-    @RequiresPermissions("user:read")
+    //@RequiresAuthentication
+    //@RequiresPermissions("user:read")
     @RequestMapping("/visitLog/all")
     public Result getFriendList(){
         List<VisitLog> list = visitLogService.lambdaQuery().list();
@@ -43,8 +43,8 @@ public class VisitLogController {
     /**
      * 分页查询所有游客
      */
-    @RequiresAuthentication
-    @RequiresPermissions("user:read")
+    //@RequiresAuthentication
+    //@RequiresPermissions("user:read")
     @GetMapping("/visitLogList")
     public Result getVisitorList(@RequestParam(defaultValue = "1") Integer currentPage,@RequestParam(defaultValue = "10") Integer pageSize) {
 
@@ -57,8 +57,8 @@ public class VisitLogController {
     /**
      * 根据uuid 访问时间范围 分页查询所有游客日志
      */
-    @RequiresAuthentication
-    @RequiresPermissions("user:read")
+    //@RequiresAuthentication
+    //@RequiresPermissions("user:read")
     @GetMapping("/visitLog/part")
     public Result getVisitorList(@RequestParam(defaultValue = "") String uuid,@RequestParam(defaultValue = "") String time,@RequestParam(defaultValue = "1") Integer currentPage,@RequestParam(defaultValue = "10") Integer pageSize) {
         String[] endStartTime = time.split(",");
@@ -89,7 +89,7 @@ public class VisitLogController {
     /**
      * 修改游客访问日志
      */
-    @RequiresAuthentication
+    //@RequiresAuthentication
     @PostMapping("/visitLog/update")
     public Result updateVisitLog(@Validated @RequestBody VisitLog visitLog){
         if(visitLog ==null){
@@ -109,9 +109,9 @@ public class VisitLogController {
     /**
      * 删除某个浏览日志
      */
-    @RequiresRoles("role_root")
-    @RequiresPermissions("user:delete")
-    @RequiresAuthentication
+    //@RequiresRoles("role_root")
+    //@RequiresPermissions("user:delete")
+    //@RequiresAuthentication
     @GetMapping("/visitLog/delete/{id}")
     public Result delete(@PathVariable(name = "id") Long id) {
 

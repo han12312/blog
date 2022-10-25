@@ -53,8 +53,8 @@ public class VisitorController {
     /**
      * 查询所有游客
      */
-    @RequiresPermissions("user:read")
-    @RequiresAuthentication
+    //@RequiresPermissions("user:read")
+    //@RequiresAuthentication
     @RequestMapping("/visitor")
     public Result getAllVisiorList(){
         List<Visitor> list = visitorService.lambdaQuery().list();
@@ -66,8 +66,8 @@ public class VisitorController {
     /**
      * 分页查询所有游客
      */
-    @RequiresAuthentication
-    @RequiresPermissions("user:read")
+    //@RequiresAuthentication
+    //@RequiresPermissions("user:read")
     @GetMapping("/visitorList")
     public Result getVisitorList(@RequestParam(defaultValue = "1") Integer currentPage,@RequestParam(defaultValue = "10") Integer pageSize) {
 
@@ -80,8 +80,8 @@ public class VisitorController {
     /**
      * 根据访问时间 分页查询所有游客
      */
-    @RequiresAuthentication
-    @RequiresPermissions("user:read")
+    //@RequiresAuthentication
+    //@RequiresPermissions("user:read")
     @GetMapping("/visitor/part")
     public Result getVisitorListByTime(@RequestParam(defaultValue = "") String time,@RequestParam(defaultValue = "1") Integer currentPage,@RequestParam(defaultValue = "10") Integer pageSize) {
         String[] endStartTime = time.split(",");
@@ -97,7 +97,7 @@ public class VisitorController {
     /**
      * 修改某个游客信息
      */
-    @RequiresAuthentication
+    //@RequiresAuthentication
     @PostMapping("/visitor/update")
     public Result updateVisitLog(@Validated @RequestBody Visitor visitor){
         if(visitor ==null){
@@ -117,9 +117,9 @@ public class VisitorController {
     /**
      * 删除某个游客
      */
-    @RequiresRoles("role_root")
-    @RequiresAuthentication
-    @RequiresPermissions("user:delete")
+    //@RequiresRoles("role_root")
+    //@RequiresAuthentication
+    //@RequiresPermissions("user:delete")
     @GetMapping("/visitor/delete/{id}")
     public Result delete(@PathVariable(name = "id") Long id) {
 

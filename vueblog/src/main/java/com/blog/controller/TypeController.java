@@ -49,8 +49,8 @@ public class TypeController {
     /**
      * 分页查询分类
      */
-    @RequiresAuthentication
-    @RequiresPermissions("user:read")
+    //@RequiresAuthentication
+    //@RequiresPermissions("user:read")
     @GetMapping("/type/list")
     public Result typeList(@RequestParam(defaultValue = "1") Integer currentPage, @RequestParam(defaultValue = "10") Integer pageSize) {
 
@@ -63,8 +63,8 @@ public class TypeController {
     /**
      * 增加分类
      */
-    @RequiresPermissions("user:create")
-    @RequiresAuthentication
+    //@RequiresPermissions("user:create")
+    //@RequiresAuthentication
     @PostMapping("/type/create")
     public Result createType(@Validated @RequestBody Type type){
         if(type==null){
@@ -82,8 +82,8 @@ public class TypeController {
     /**
      * 修改分类
      */
-    @RequiresPermissions("user:update")
-    @RequiresAuthentication
+    //@RequiresPermissions("user:update")
+    //@RequiresAuthentication
     @PostMapping("/type/update")
     public Result updateType(@Validated @RequestBody Type type){
         if(type==null){
@@ -100,9 +100,9 @@ public class TypeController {
     /**
      * 删除分类
      */
-    @RequiresRoles("role_root")
-    @RequiresPermissions("user:delete")
-    @RequiresAuthentication
+    //@RequiresRoles("role_root")
+    //@RequiresPermissions("user:delete")
+    //@RequiresAuthentication
     @GetMapping("/type/delete/{id}")
     public Result delete(@PathVariable(name = "id") Long id) {
 

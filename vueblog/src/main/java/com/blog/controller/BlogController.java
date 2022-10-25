@@ -98,7 +98,7 @@ public class BlogController {
     /**
      * 按创建时间排序 分页查询所有博客
      */
-    @RequiresPermissions("user:read")
+    //@RequiresPermissions("user:read")
     @GetMapping("/blogList")
     public Result blogList(@RequestParam(defaultValue = "1") Integer currentPage,@RequestParam(defaultValue = "10") Integer pageSize) {
 
@@ -111,7 +111,7 @@ public class BlogController {
     /**
      * 查询所有博客
      */
-    @RequiresPermissions("user:read")
+    //@RequiresPermissions("user:read")
     @GetMapping("/blog/all")
     public Result blogAll() {
         List<Blog> list = blogService.lambdaQuery().list();
@@ -201,7 +201,7 @@ public class BlogController {
     /**
      * 查询某个博客详情
      */
-    @RequiresPermissions("user:read")
+    //@RequiresPermissions("user:read")
     @GetMapping("/blog/detail/{id}")
     public Result getDetail(@PathVariable(name = "id") Long id) {
 
@@ -215,9 +215,9 @@ public class BlogController {
     /**
      * 删除某个博客
      */
-    @RequiresRoles("role_root")
-    @RequiresPermissions("user:delete")
-    @RequiresAuthentication
+    //@RequiresRoles("role_root")
+    //@RequiresPermissions("user:delete")
+    //@RequiresAuthentication
     @GetMapping("/blog/delete/{id}")
     public Result delete(@PathVariable(name = "id") Long id) {
 
@@ -237,8 +237,8 @@ public class BlogController {
     /**
      * 修改某个博客
      */
-    @RequiresPermissions("user:update")
-    @RequiresAuthentication
+    //@RequiresPermissions("user:update")
+    //@RequiresAuthentication
     @PostMapping("/blog/update")
     public Result update(@Validated @RequestBody Blog blog) {
         //System.out.println(blog.toString());
@@ -264,8 +264,8 @@ public class BlogController {
     /**
      * 创建博客
      */
-    @RequiresPermissions("user:create")
-    @RequiresAuthentication
+    //@RequiresPermissions("user:create")
+    //@RequiresAuthentication
     @PostMapping("/blog/create")
     public Result create(@Validated @RequestBody Blog blog) {
         //System.out.println(blog.toString());
@@ -289,7 +289,7 @@ public class BlogController {
     /**
      * 修改博客状态
      */
-    @RequiresPermissions("user:update")
+    //@RequiresPermissions("user:update")
     @RequestMapping("blog/publish/{id}")
     public Result publish(@PathVariable(name = "id")String id){
         Blog blog = blogService.getById(id);

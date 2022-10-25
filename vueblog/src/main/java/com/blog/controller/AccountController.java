@@ -61,7 +61,7 @@ public class AccountController {
      * 登出请求处理
      */
     @GetMapping("/logout")
-    @RequiresAuthentication
+    //@RequiresAuthentication
     public Result logout() {
         SecurityUtils.getSubject().logout();
         return Result.succ("退出成功");
