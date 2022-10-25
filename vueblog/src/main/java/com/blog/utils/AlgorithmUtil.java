@@ -28,14 +28,12 @@ public class AlgorithmUtil {
 
     public static void main(String[] args) {
 //        1.反转链表(输入：1,2,3,4,5 输出:5,4,3,2,1)
-        reverseList();
+//        reverseList();
 //        2.遍历二叉树(递归 输入：1,2,3,4,5 输出：4,2,5,1,3)
 //        traversal();
 //        3.二分法(输入: 5,10,15,20,25,30,35\n 15 输出：2)
 //        binarySearch();
-//        4.冒泡排序(输入：20,30,5,15,10,25,35 输出：5, 10, 15, 20, 25, 30, 35)
-//        bubbleSort();
-//        5.快速排序(输入：20,30,5,15,10,25,35 输出：5, 10, 15, 20, 25, 30, 35)
+//        4.快速排序(输入：20,30,5,15,10,25,35 输出：5, 10, 15, 20, 25, 30, 35)
 //        quickSortMain();
     }
 
@@ -53,20 +51,11 @@ public class AlgorithmUtil {
 
     public static ListNode createListNode(int[] nums) {
         ListNode node = new ListNode(0), head = node;
-        for (int n : nums) {
-            node.next = new ListNode(n);
+        for (int num : nums) {
+            node.next = new ListNode(num);
             node = node.next;
         }
         return head.next;
-    }
-
-    public static List<Integer> printListNode(ListNode head) {
-        List<Integer> list = new ArrayList<>();
-        while (head != null) {
-            list.add(head.val);
-            head = head.next;
-        }
-        return list;
     }
 
     public static ListNode iterate(ListNode head) {
@@ -89,29 +78,39 @@ public class AlgorithmUtil {
         return res;
     }
 
+    public static List<Integer> printListNode(ListNode head) {
+        List<Integer> list = new ArrayList<>();
+        while (head != null) {
+            list.add(head.val);
+            head = head.next;
+        }
+        return list;
+    }
+
     //    2.遍历二叉树(递归 输入：1,2,3,4,5 输出：4,2,5,1,3)
+    static List<Integer> result = new ArrayList<>();
+
     public static void traversal() {
         Scanner scanner = new Scanner(System.in);
         int[] nums = Arrays.stream(scanner.nextLine().split(",")).mapToInt(Integer::parseInt).toArray();
         TreeNode node = createTree(nums, 0);
         System.out.println(breadth(node));
-        List<Integer> result = new ArrayList<>();
-        inorder(node, result);
+        inorder(node);
         System.out.println(result);
     }
 
     public static TreeNode createTree(int[] nums, int n) {
-        if (nums.length <= n || nums[n] == 0) {
+        if (n >= nums.length || nums[n] == 0) {
             return null;
         }
         TreeNode node = new TreeNode(nums[n]);
-        node.left = createTree(nums, 2 * n + 1);
-        node.right = createTree(nums, 2 * n + 2);
+        node.left = createTree(nums, n * 2 + 1);
+        node.right = createTree(nums, n * 2 + 2);
         return node;
     }
 
     public static List<Integer> breadth(TreeNode node) {
-        List<Integer> result = new ArrayList<>();
+        List<Integer> res = new ArrayList<>();
         Queue<TreeNode> queue = new LinkedList<>();
         queue.add(node);
         while (!queue.isEmpty()) {
@@ -122,18 +121,18 @@ public class AlgorithmUtil {
             if (tmp.right != null) {
                 queue.add(tmp.right);
             }
-            result.add(tmp.val);
+            res.add(tmp.val);
         }
-        return result;
+        return res;
     }
 
-    public static void inorder(TreeNode node, List<Integer> result) {
+    public static void inorder(TreeNode node) {
         if (node == null) {
             return;
         }
-        inorder(node.left, result);
+        inorder(node.left);
         result.add(node.val);
-        inorder(node.right, result);
+        inorder(node.right);
     }
 
     //    3.二分法(输入: 5,10,15,20,25,30,35\n 15 输出：2)
@@ -147,7 +146,7 @@ public class AlgorithmUtil {
     public static int binarySearch(int[] nums, int key) {
         int low = 0, high = nums.length - 1, mid;
         while (low <= high) {
-            mid = (high + low) / 2;
+            mid = (low + high) / 2;
             if (nums[mid] == key) {
                 return mid;
             } else if (nums[mid] < key) {
@@ -159,23 +158,7 @@ public class AlgorithmUtil {
         return -1;
     }
 
-    //    4.冒泡排序(输入：20,30,5,15,10,25,35 输出：5, 10, 15, 20, 25, 30, 35)
-    public static void bubbleSort() {
-        Scanner sc = new Scanner(System.in);
-        int[] nums = Arrays.stream(sc.nextLine().split(",")).mapToInt(Integer::parseInt).toArray();
-        for (int i = 0; i < nums.length - 1; i++) {
-            for (int j = 0; j < nums.length - 1 - i; j++) {
-                if (nums[j] > nums[j + 1]) {
-                    int temp = nums[j];
-                    nums[j] = nums[j + 1];
-                    nums[j + 1] = temp;
-                }
-            }
-        }
-        System.out.println(Arrays.toString(nums));
-    }
-
-    //    5.快速排序(输入：20,30,5,15,10,25,35 输出：5, 10, 15, 20, 25, 30, 35)
+    //    4.快速排序(输入：20,30,5,15,10,25,35 输出：5, 10, 15, 20, 25, 30, 35)
     public static void quickSortMain() {
         Scanner sc = new Scanner(System.in);
         int[] nums = Arrays.stream(sc.nextLine().split(",")).mapToInt(Integer::parseInt).toArray();
@@ -187,21 +170,19 @@ public class AlgorithmUtil {
         if (low >= high) {
             return;
         }
-        int temp = nums[low];
-        int l = low;
-        int h = high;
+        int tmp = nums[low], l = low, h = high;
         while (l < h) {
-            while (l < h && nums[h] >= temp) {
+            while (l < h && nums[h] >= tmp) {
                 h--;
             }
             nums[l] = nums[h];
-            while (l < h && nums[l] <= temp) {
+            while (l < h && nums[l] <= tmp) {
                 l++;
             }
             nums[h] = nums[l];
         }
-        nums[l] = temp;
+        nums[l] = tmp;
         quickSort(nums, low, l - 1);
-        quickSort(nums, h + 1, high);
+        quickSort(nums, l + 1, high);
     }
 }
