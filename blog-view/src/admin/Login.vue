@@ -4,7 +4,7 @@
       <!--头像-->
       <el-header>
         <router-link to="/admin">
-          <img alt="" class="mlogo" src="https://cdn.jsdelivr.net/gh/yubifeng/blog-resource/bloghosting/website/static/websiteAvatar.webp">
+          <img alt="" class="mlogo" :src="require('@/assets/tx.jpg')">
         </router-link>
       </el-header>
       <!--主界面-->
@@ -14,7 +14,8 @@
             <el-input v-model="ruleForm.username" maxlength="12" type="text"></el-input>
           </el-form-item>
           <el-form-item label="密码" prop="password">
-            <el-input v-model="ruleForm.password" autocomplete="off" type="password"></el-input>
+            <el-input v-model="ruleForm.password" autocomplete="off" type="password"
+                      @keyup.enter.native="submitForm('ruleForm')"></el-input>
           </el-form-item>
           <el-form-item>
             <el-button type="primary" @click="submitForm('ruleForm')">登录</el-button>

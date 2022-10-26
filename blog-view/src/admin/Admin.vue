@@ -241,11 +241,13 @@ export default {
     },
     //登出
     logout() {
-      const _this = this
-      this.$axios.get('/logout').then((res) => {
-        _this.$store.commit('REMOVE_INFO')
-        _this.$router.push('/login')
-      });
+      localStorage.removeItem("token");
+      this.$router.push('login');
+      // const _this = this
+      // this.$axios.get('/logout').then((res) => {
+      //   _this.$store.commit('REMOVE_INFO')
+      //   _this.$router.push('/login')
+      // });
 
     }
   },

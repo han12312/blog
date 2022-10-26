@@ -38,7 +38,7 @@
           <el-col :span="12">
             <el-form-item label="标签" prop="tagList">
               <el-select v-model="ruleForm.tagList" :allow-create="true" :filterable="true" :multiple="true" placeholder="请选择标签（输入可添加新标签）" style="width: 100%;">
-                <el-option v-for="item in tagList" :key="item.id" :label="item.name" :value="item.id"></el-option>
+                <el-option v-for="item in ruleForm.tagList" :key="item.id" :label="item.name" :value="item.id"></el-option>
               </el-select>
             </el-form-item>
           </el-col>
@@ -89,6 +89,7 @@ export default {
         content: '',
         firstPicture: '',
         typeId: '',
+        tagList:[],
         createTime: '2020-05-22 22:05:49',
         updateTime: '2020-05-22 22:05:49',
         userId: 1,
