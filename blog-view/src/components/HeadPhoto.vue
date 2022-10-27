@@ -2,8 +2,8 @@
   <div class="head-photo" style="width: 100%;height: 820px">
     <!-- banner -->
 
-    <img v-if="focusMode === false" src="https://cdn.jsdelivr.net/gh/han12312/blog//blog-view/src/assets/bg1.jpg" style="width: 100%;height: 100%">
-    <img v-if="focusMode === true" src="https://cdn.jsdelivr.net/gh/han12312/blog//blog-view/src/assets/bg2.jpg" style="width: 100%;height: 80%">
+    <img v-if="focusMode === false" src="@/assets/bg1.jpg" style="width: 100%;height: 100%">
+    <img v-if="focusMode === true" src="@/assets/bg2.jpg" style="width: 100%;height: 80%">
 
     <div class="banner-container">
     <el-row style="height: 95vh">
